@@ -34,3 +34,28 @@ export interface TabData{
   type:tabType,
   list:Array<Column>,
 }
+
+export interface column_info{
+  id:string,
+  page:number
+}
+
+export interface post{
+  id:string,
+  title:string,
+  createTime:Date,
+  stats:number,
+  createUserId:string,
+  lastReplyUserId:string,
+  msg:string,
+  updateTime:Date
+}
+
+export interface reply{
+  id:string,
+  postId:string,
+  createTime:Date,
+  createUserId:string,
+  msg:string,
+  updateTime:Date
+}

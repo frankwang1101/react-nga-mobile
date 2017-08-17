@@ -7,7 +7,7 @@ export default function () {
     <Router>
       <Switch>
         <Route exact path='/' component={Main} />
-        <Route path='/column' component={Column} />
+        <Route path='/column/:id/:page' component={Column} />
       </Switch>
     </Router>
   )
