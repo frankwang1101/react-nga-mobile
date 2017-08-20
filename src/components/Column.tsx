@@ -7,6 +7,7 @@ import TabCarousel from '../components/Tabs'
 import Aside from '../components/Aside'
 import { TabData } from '../types/common'
 import { easeInOout } from '../utils/Tween'
+import * as Utils from '../utils/Utils'
 
 interface Props {
   [property: string]: any,
@@ -55,7 +56,7 @@ export default class Column extends React.Component<Props, State>{
     }
   }
   componentWillReceiveProps(nextProps: Props) {
-
+    console.log(nextProps)
   }
   back() {
     this.props.history.go(-1);
@@ -74,16 +75,17 @@ export default class Column extends React.Component<Props, State>{
   }
   onTouchMove(ev: any) {
     if(this.loadProcess){
-      let dy = ev.touches[0].clientY - this.elePos.y;
-      if(dy > 60) dy = 60;
+      let cy = ev.touches[0].clientY;
+      let dy = cy - this.elePos.py;
+      if(dy > 80) dy = 80;
       this.moves.push({loadY:dy});
       this.requestSetState();
-      this.elePos.y = ev.touches[0].clientY;
+      this.elePos.y = cy;
     }
   }
   onTouchEnd(ev: any) {
     if(this.loadProcess){
-      if(ev.touches[0].clientY - this.elePos.y > 60){
+      if(this.elePos.y - this.elePos.py > 80){
         this.load();
       }else{
         this.cancelLoad();
@@ -113,8 +115,15 @@ export default class Column extends React.Component<Props, State>{
       start++;
       y = easeInOout(start,y,5-y,20);
       this.setState(Object.assign(this.state,{loadY:y}));
+      if(y <= 5){
+        this.setState({
+          loadY:-1
+        })
+        return;
+      }
       if(start < during) requestAnimationFrame(run);
     }
+    run();
   }
   add(){
     console.log('add')
@@ -129,6 +138,7 @@ export default class Column extends React.Component<Props, State>{
     }
   }
   render() {
+    console.log(this.props)
     return (
       <div className="body-wrap column-wrap" >
         <header>
@@ -139,6 +149,9 @@ export default class Column extends React.Component<Props, State>{
             <div className="operate"></div>
           </div>
         </header>
+        {
+          Utils.ctrlLoad({loadY:this.state.loadY})
+        }
         <div className="header-bottom">
           <div className="sub-column link">置顶3</div>
           <div className="sub-column link">热门</div>
@@ -154,66 +167,7 @@ export default class Column extends React.Component<Props, State>{
         </ul>
         <article className="column-content" onTouchStart={this.onTouchStart} onTouchMove={this.onTouchMove}>
           <ul className="post-list">
-            <li className="post-item">
-              <div className="post-title">力量的化身--聊聊游戏中给你印象最深的武器</div>
-              <div className="post-info">
-                <span className="post-author">admin</span>
-                <span className="post-stat">
-                  <span className="post-time">5分钟前</span>
-                  <span className="post-reply">150</span>
-                </span>
-              </div>
-            </li>
-            <li className="post-item">
-              <div className="post-title">力量的化身--聊聊游戏中给你印象最深的武器</div>
-              <div className="post-info">
-                <span className="post-author">admin</span>
-                <span className="post-stat">
-                  <span className="post-time">5分钟前</span>
-                  <span className="post-reply">150</span>
-                </span>
-              </div>
-            </li>
-            <li className="post-item">
-              <div className="post-title">力量的化身--聊聊游戏中给你印象最深的武器</div>
-              <div className="post-info">
-                <span className="post-author">admin</span>
-                <span className="post-stat">
-                  <span className="post-time">5分钟前</span>
-                  <span className="post-reply">150</span>
-                </span>
-              </div>
-            </li>
-            <li className="post-item">
-              <div className="post-title">力量的化身--聊聊游戏中给你印象最深的武器</div>
-              <div className="post-info">
-                <span className="post-author">admin</span>
-                <span className="post-stat">
-                  <span className="post-time">5分钟前</span>
-                  <span className="post-reply">150</span>
-                </span>
-              </div>
-            </li>
-            <li className="post-item">
-              <div className="post-title">力量的化身--聊聊游戏中给你印象最深的武器</div>
-              <div className="post-info">
-                <span className="post-author">admin</span>
-                <span className="post-stat">
-                  <span className="post-time">5分钟前</span>
-                  <span className="post-reply">150</span>
-                </span>
-              </div>
-            </li>
-            <li className="post-item">
-              <div className="post-title">力量的化身--聊聊游戏中给你印象最深的武器</div>
-              <div className="post-info">
-                <span className="post-author">admin</span>
-                <span className="post-stat">
-                  <span className="post-time">5分钟前</span>
-                  <span className="post-reply">150</span>
-                </span>
-              </div>
-            </li>
+            {Utils.renderPost(this.props.posts || [])}
           </ul>
         </article>
         <div className="operate-area">

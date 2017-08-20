@@ -46,9 +46,11 @@ export interface post{
   createTime:Date,
   stats:number,
   createUserId:string,
+  createUserName?:string,
   lastReplyUserId:string,
   msg:string,
-  updateTime:Date
+  updateTime:Date,
+  replyCount?:number
 }
 
 export interface reply{

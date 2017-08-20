@@ -6,6 +6,9 @@ import Column from '../components/Column'
 import {column_info} from '../types/common'
 
 export function mapStateToProps(storeState: storeState) {
+  console.log('---')
+  console.log(storeState.posts)
+  console.log('---')
   return {
     posts:storeState.posts,
     page:storeState.page,
