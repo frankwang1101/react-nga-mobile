@@ -16,8 +16,11 @@ export function columnReduce(state:storeState, action:ForumAction){
       return state;
     }
     case GET_COLUMN_POST:{
-      const r = Object.assign(state,{ posts:action.data, page:action.data.page})
-      return r;
+      return {
+        ...state,
+        posts:action.data.posts, 
+        page:action.data.page
+      };
     }
     default:
       return state;

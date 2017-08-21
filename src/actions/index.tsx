@@ -84,8 +84,10 @@ export function loadPost(info:column_info){
         ];
         dispatch({
           type:GET_COLUMN_POST,
-          data:posts,
-          page:info.page
+          data:{
+            posts:posts,
+            page:info.page
+          }
         });
         rs(true);
       }, 1000);

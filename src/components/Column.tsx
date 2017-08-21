@@ -12,14 +12,15 @@ import * as Utils from '../utils/Utils'
 interface Props {
   [property: string]: any,
   posts: Array<any>,
-  page: number,
   loadPost: any
 }
 interface State {
   isFetch: boolean,
   startLoading: boolean,
   loaded: boolean,
-  loadY:number
+  loadY:number,
+  showOpt?:boolean,
+  page: number  
 }
 
 export default class Column extends React.Component<Props, State>{
@@ -30,7 +31,8 @@ export default class Column extends React.Component<Props, State>{
       isFetch: null,
       startLoading: false,
       loaded: false,
-      loadY:-1
+      loadY:-1,
+      page:1
     };
     this.elePos = {};
     this.loadProcess = false;
@@ -44,6 +46,7 @@ export default class Column extends React.Component<Props, State>{
       'load',
       'cancelLoad',
       'add',
+      'showOpt',
     ].forEach(m => { this[m] = this[m].bind(this) });
   }
   componentWillMount() {
@@ -64,7 +67,9 @@ export default class Column extends React.Component<Props, State>{
   onTouchStart(ev: any) {
     // this.elePos.x = ev.touches[0].clientX;
     // this.elePos.px = ev.touches[0].clientX;
-    if (!this.loadProcess) {
+    let rect = document.documentElement.getBoundingClientRect();
+    this.scrollTop = rect.top;
+    if (!this.loadProcess && rect.top === 0) {
       this.elePos.y = ev.touches[0].clientY;
       this.elePos.py = ev.touches[0].clientY;
       this.moves = [];
@@ -74,16 +79,34 @@ export default class Column extends React.Component<Props, State>{
 
   }
   onTouchMove(ev: any) {
+    let cy = ev.touches[0].clientY;
+    let dy = cy - this.elePos.py;
+    this.elePos.y = cy;
     if(this.loadProcess){
-      let cy = ev.touches[0].clientY;
-      let dy = cy - this.elePos.py;
+      ev.stopPropagation();
+      ev.preventDefault();
+      
+      if(this.start && dy < 0){
+        this.loadProcess = false;
+        return;
+      }else{
+        document.body.style.overflow = 'hidden'
+        this.start = false
+      }
       if(dy > 80) dy = 80;
       this.moves.push({loadY:dy});
       this.requestSetState();
-      this.elePos.y = cy;
+      
+    }else{
+      const rect = document.documentElement.getBoundingClientRect();
+      const dt = rect.top - this.scrollTop;
+      this.scrollTop = rect.top;
+      this.showOpt(dt < 0);
     }
+    
   }
   onTouchEnd(ev: any) {
+    document.body.style.overflow = 'auto';
     if(this.loadProcess){
       if(this.elePos.y - this.elePos.py > 80){
         this.load();
@@ -93,13 +116,22 @@ export default class Column extends React.Component<Props, State>{
       this.loadProcess = false;
     }
   }
+  showOpt(show:boolean){
+    if(show !== this.state.showOpt){
+        this.setState(Object.assign(this.state,{showOpt:show}));
+    }
+  }
   refresh(){
+    this.setState({
+      ...this.state,
+      page:1
+    })
     this.load(1);
   }
   load(page?:any){
     let info: any = {};
     info.id = this.props.match.params.id;
-    info.page = page || this.props.match.params.page || 1;
+    info.page = page || this.state.page || 1;
     this.props.loadPost(info).then((flag: any) => {
       if (flag) {
         this.setState({
@@ -138,7 +170,6 @@ export default class Column extends React.Component<Props, State>{
     }
   }
   render() {
-    console.log(this.props)
     return (
       <div className="body-wrap column-wrap" >
         <header>
@@ -170,7 +201,7 @@ export default class Column extends React.Component<Props, State>{
             {Utils.renderPost(this.props.posts || [])}
           </ul>
         </article>
-        <div className="operate-area">
+        <div className="operate-area" style={{visibility:this.state.showOpt?'hidden':'visible'}}>
           <div className="btn btn-refresh" onClick={this.load}>
             <i className="iconfont icon-refresh"></i>
           </div>

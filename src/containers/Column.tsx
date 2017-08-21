@@ -5,17 +5,13 @@ import { storeState } from '../reducers/reducer'
 import Column from '../components/Column'
 import {column_info} from '../types/common'
 
-export function mapStateToProps(storeState: storeState) {
-  console.log('---')
-  console.log(storeState.posts)
-  console.log('---')
+const mapStateToProps = (storeState: storeState) => {
   return {
     posts:storeState.posts,
-    page:storeState.page,
   }
 }
 
-export function mapDispatchToProps(dispatch: Dispatch<actions.ForumAction>) {
+const mapDispatchToProps = (dispatch: Dispatch<actions.ForumAction>) => {
   return {
     loadPost:(info:column_info) => (dispatch(actions.loadPost(info)))
   }
