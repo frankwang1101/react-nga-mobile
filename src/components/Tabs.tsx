@@ -206,14 +206,14 @@ export default class TabCarousel extends React.Component<Props, State>{
           sub.icons.sort(function (v1: ColumnIcon, v2: ColumnIcon) { return v1.seq - v2.seq });
           let subArr = sub.icons.map(function (icon: ColumnIcon, idx) {
             return (
-              <div className="column-item">
+              <div className="column-item" key={icon.id}>
                 <img src={icon.picUrl} alt={icon.name} />
                 <span>{icon.name}</span>
               </div>
             )
           })
           return (
-            <div className="content-list">
+            <div className="content-list" key={columnArr.length}>
               <div className="content-top">
                 <span className="warn-label">{sub.desc}</span>
               </div>
@@ -225,7 +225,7 @@ export default class TabCarousel extends React.Component<Props, State>{
             </div>
           )
         });
-        pageArr.push(<div className="tab-page">{columnArr}</div>);
+        pageArr.push(<div className="tab-page" key={pageArr.length}>{columnArr}</div>);
       }
     })
     return (

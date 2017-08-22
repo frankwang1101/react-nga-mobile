@@ -14,6 +14,7 @@ export interface Page{
 }
 
 export interface ColumnIcon{
+  id:string,
   name:string,
   seq:number,
   picUrl:string

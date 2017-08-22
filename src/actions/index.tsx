@@ -80,6 +80,78 @@ export function loadPost(info:column_info){
             msg:'sdafsdasssssssssssssssssalkfhdsafih'+randomNum(13),
             updateTime:null
 
+          },
+          {
+            id:'asdfdsf'+randomNum(4),
+            title:'这是一个标题'+randomNum(3),
+            createTime:new Date('2017-08-15 21:21'),
+            stats:0,
+            createUserId:'user1'+randomNum(2),
+            createUserName:'frank'+randomNum(4),
+            lastReplyUserId:null,
+            msg:'sdafsdasssssssssssssssssalkfhdsafih'+randomNum(13),
+            updateTime:null
+
+          },
+          {
+            id:'asdfdsf'+randomNum(4),
+            title:'这是一个标题'+randomNum(3),
+            createTime:new Date('2017-08-15 21:21'),
+            stats:0,
+            createUserId:'user1'+randomNum(2),
+            createUserName:'frank'+randomNum(4),
+            lastReplyUserId:null,
+            msg:'sdafsdasssssssssssssssssalkfhdsafih'+randomNum(13),
+            updateTime:null
+
+          },
+          {
+            id:'asdfdsf'+randomNum(4),
+            title:'这是一个标题'+randomNum(3),
+            createTime:new Date('2017-08-15 21:21'),
+            stats:0,
+            createUserId:'user1'+randomNum(2),
+            createUserName:'frank'+randomNum(4),
+            lastReplyUserId:null,
+            msg:'sdafsdasssssssssssssssssalkfhdsafih'+randomNum(13),
+            updateTime:null
+
+          },
+          {
+            id:'asdfdsf'+randomNum(4),
+            title:'这是一个标题'+randomNum(3),
+            createTime:new Date('2017-08-15 21:21'),
+            stats:0,
+            createUserId:'user1'+randomNum(2),
+            createUserName:'frank'+randomNum(4),
+            lastReplyUserId:null,
+            msg:'sdafsdasssssssssssssssssalkfhdsafih'+randomNum(13),
+            updateTime:null
+
+          },
+          {
+            id:'asdfdsf'+randomNum(4),
+            title:'这是一个标题'+randomNum(3),
+            createTime:new Date('2017-08-15 21:21'),
+            stats:0,
+            createUserId:'user1'+randomNum(2),
+            createUserName:'frank'+randomNum(4),
+            lastReplyUserId:null,
+            msg:'sdafsdasssssssssssssssssalkfhdsafih'+randomNum(13),
+            updateTime:null
+
+          },
+          {
+            id:'asdfdsf'+randomNum(4),
+            title:'这是一个标题'+randomNum(3),
+            createTime:new Date('2017-08-15 21:21'),
+            stats:0,
+            createUserId:'user1'+randomNum(2),
+            createUserName:'frank'+randomNum(4),
+            lastReplyUserId:null,
+            msg:'sdafsdasssssssssssssssssalkfhdsafih'+randomNum(13),
+            updateTime:null
+
           }
         ];
         dispatch({

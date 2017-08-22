@@ -18,24 +18,30 @@ let tabDatas:Array<TabData> = [{
     icons:[{
       name:'DNF',
       seq:1,
-      picUrl:''
+      picUrl:'',
+      id:'dnf',
     },{
+      id:'diablo',
       name:'暗黑3',
       seq:2,
       picUrl:''
     },{
+      id:'games',
       name:'游戏综合',
       seq:3,
       picUrl:''
     },{
+      id:'acg',
       name:'二次元',
       seq:4,
       picUrl:''
     },{
+      id:'hardware',
       name:'硬件配置',
       seq:5,
       picUrl:''
     },{
+      id:'composite',
       name:'网事杂谈',
       seq:6,
       picUrl:''
@@ -50,14 +56,17 @@ let tabDatas:Array<TabData> = [{
     seq:1,
     desc:'热门推荐',
     icons:[{
+      id:'fate',
       name:'Fate/Grand',
       seq:1,
       picUrl:''
     },{
+      id:'line',
       name:'碧蓝航线',
       seq:2,
       picUrl:''
     },{
+      id:'h1z1',
       name:'绝地求生',
       seq:3,
       picUrl:''
@@ -82,22 +91,27 @@ let tabDatas:Array<TabData> = [{
     seq:1,
     desc:'杂谈精选',
     icons:[{
+      id:'composite',
       name:'网事杂谈',
       seq:1,
       picUrl:''
     },{
+      id:'acg',
       name:'二次元',
       seq:2,
       picUrl:''
     },{
+      id:'car',
       name:'寂寞的车',
       seq:3,
       picUrl:''
     },{
+      id:'music',
       name:'音乐影视',
       seq:4,
       picUrl:''
     },{
+      id:'soccer',
       name:'生命之杯',
       seq:5,
       picUrl:''

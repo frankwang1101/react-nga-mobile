@@ -62,7 +62,7 @@ export default class Column extends React.Component<Props, State>{
     console.log(nextProps)
   }
   back() {
-    this.props.history.go(-1);
+    this.props.history.push('/');
   }
   onTouchStart(ev: any) {
     // this.elePos.x = ev.touches[0].clientX;

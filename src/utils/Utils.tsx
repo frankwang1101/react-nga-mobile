@@ -81,7 +81,7 @@ function parseTime(time:any){
 
 export function renderPost(posts: Array<post>) {
   return posts.map(v => (
-    <li className="post-item">
+    <li className="post-item" key={v.id}>
       <div className="post-title">{v.title}</div>
       <div className="post-info">
         <span className="post-author">{v.createUserName}</span>
