@@ -7,7 +7,10 @@ import Aside from '../components/Aside'
 import { TabData } from '../types/common'
 import '../style/index.less'
 
-export interface Props { name?: string, tabs: Array<TabData> }
+export interface Props { 
+  name?: string, 
+  tabs: Array<TabData>
+}
 
 export default class App extends React.Component<Props, { showAside: boolean }>{
   constructor(args: any) {

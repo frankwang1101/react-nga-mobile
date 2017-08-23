@@ -12,7 +12,8 @@ import * as Utils from '../utils/Utils'
 interface Props {
   [property: string]: any,
   posts: Array<any>,
-  loadPost: any
+  loadPost: any,
+  close?:any
 }
 interface State {
   isFetch: boolean,
@@ -38,7 +39,6 @@ export default class Column extends React.Component<Props, State>{
     this.loadProcess = false;
     this.moves = [];
     [
-      'back',
       'onTouchStart',
       'onTouchMove',
       'onTouchEnd',
@@ -60,9 +60,6 @@ export default class Column extends React.Component<Props, State>{
   }
   componentWillReceiveProps(nextProps: Props) {
     console.log(nextProps)
-  }
-  back() {
-    this.props.history.push('/');
   }
   onTouchStart(ev: any) {
     // this.elePos.x = ev.touches[0].clientX;
@@ -174,7 +171,7 @@ export default class Column extends React.Component<Props, State>{
       <div className="body-wrap column-wrap" >
         <header>
           <div className="header-top">
-            <div className="back" onClick={this.back}>{'<-'}</div>
+            <div className="back" onClick={this.props.close}>{'<-'}</div>
             <div className="column-title active link">网事杂谈</div>
             <div className="collect"></div>
             <div className="operate"></div>

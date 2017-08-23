@@ -26,7 +26,37 @@ html,body{
     transform: translateX(0%)
   }
 }
-
+.combine{
+  position: relative;
+  height: 100vh;
+  &.scroll-forbid{
+    overflow: hidden;
+  }
+  .level{
+    position: absolute;
+    width: 100%;
+  }
+  .page-mask::before{
+    content:'';
+    display: block;
+    background: rgba(0,0,0,0.4);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 111;
+  }
+  .level-0{
+    z-index: 1000;
+  }
+  .level-1{
+    z-index: 1010;
+  }
+  .level-2{
+    z-index: 1020;
+  }
+}
 .body-wrap{
   .link{
     color: #999;
@@ -34,6 +64,7 @@ html,body{
       color: rgb(201, 150, 41);
     }
   }
+  width: 100%;
   .link-tab{
     .link-tab-list{
       padding: 0;
