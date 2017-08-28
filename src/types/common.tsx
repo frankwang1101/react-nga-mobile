@@ -51,7 +51,25 @@ export interface post{
   lastReplyUserId:string,
   msg:string,
   updateTime:Date,
-  replyCount?:number
+  replyCount?:number,
+  up?:number,
+  down?:number
+  comments?:Array<comment>
+}
+
+export interface comment{
+  id:string,
+  title:string,
+  createTime:Date,
+  stats:number,
+  createUserId:string,
+  createUserName?:string,
+  lastReplyUserId:string,
+  msg:string,
+  updateTime:Date,
+  replyCount?:number,
+  up?:number,
+  down?:number
 }
 
 export interface reply{

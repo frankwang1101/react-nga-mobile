@@ -36,8 +36,7 @@ html,body{
     position: absolute;
     width: 100%;
   }
-  .page-mask::before{
-    content:'';
+  .page-mask{
     display: block;
     background: rgba(0,0,0,0.4);
     position: absolute;
@@ -292,6 +291,26 @@ html,body{
         line-height: 1.7rem;
         .column-title{
           font-size: 1.2rem;
+        }
+        .back{
+          padding-right: 0.5rem;
+        }
+        .collect{
+          position: absolute;
+          right: 3rem;
+          align-self: center;
+          .iconfont{
+            font-size: 1.5rem;
+          }
+        }
+        .operate{
+          position: absolute;
+          right: 0;
+          align-self: center;
+          margin-top: 2px;
+          .iconfont{
+            font-size: 1.6rem;
+          }
         }
       }
       

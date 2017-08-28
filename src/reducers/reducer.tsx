@@ -1,26 +1,32 @@
-import {ForumAction} from '../actions/index'  
-import {User,Page,TabData} from '../types/common'
-import {SHOW_USERINFO, GET_COLUMN_POST} from '../constants/index'
+import { ForumAction } from '../actions/index'
+import { User, Page, TabData } from '../types/common'
+import { SHOW_USERINFO, GET_COLUMN_POST, GET_POST_DETAIL } from '../constants/index'
 
-export interface storeState{
-  userInfo:User,
-  tabDatas?:Array<TabData>,
-  posts?:Array<any>,
-  page?:number
+export interface storeState {
+  userInfo: User,
+  tabDatas?: Array<TabData>,
+  posts?: Array<any>,
+  page?: number
 }
 
 
-export function columnReduce(state:storeState, action:ForumAction){
-  switch(action.type){
-    case SHOW_USERINFO:{
+export function columnReduce(state: storeState, action: ForumAction) {
+  switch (action.type) {
+    case SHOW_USERINFO: {
       return state;
     }
-    case GET_COLUMN_POST:{
+    case GET_COLUMN_POST: {
       return {
         ...state,
-        posts:action.data.posts, 
-        page:action.data.page
+        posts: action.data.posts,
+        page: action.data.page
       };
+    }
+    case GET_POST_DETAIL: {
+      return {
+        ...state,
+        post: action.data
+      }
     }
     default:
       return state;

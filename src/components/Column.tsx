@@ -64,6 +64,7 @@ export default class Column extends React.Component<Props, State>{
   onTouchStart(ev: any) {
     // this.elePos.x = ev.touches[0].clientX;
     // this.elePos.px = ev.touches[0].clientX;
+    console.log('column touch')
     let rect = document.documentElement.getBoundingClientRect();
     this.scrollTop = rect.top;
     if (!this.loadProcess && rect.top === 0) {
@@ -73,9 +74,14 @@ export default class Column extends React.Component<Props, State>{
       this.start = true;
       this.loadProcess = true;
     }
-
+    if(ev.touches[0].clientX < rect.width * 0.9 || ev.touches[0].clientX > rect.width * 0.1){
+      this.start = false;
+      this.loadProcess = false;
+      return;
+    }
   }
   onTouchMove(ev: any) {
+    console.log('column move')
     let cy = ev.touches[0].clientY;
     let dy = cy - this.elePos.py;
     this.elePos.y = cy;
@@ -103,6 +109,7 @@ export default class Column extends React.Component<Props, State>{
     
   }
   onTouchEnd(ev: any) {
+    console.log('column end')
     document.body.style.overflow = 'auto';
     if(this.loadProcess){
       if(this.elePos.y - this.elePos.py > 80){
@@ -168,20 +175,22 @@ export default class Column extends React.Component<Props, State>{
   }
   render() {
     return (
-      <div className="body-wrap column-wrap" >
+      <div className="body-wrap column-wrap"  onClick={() => {console.log('page click')}}  >
         <header>
           <div className="header-top">
-            <div className="back" onClick={this.props.close}>{'<-'}</div>
+            <div className="back" onClick={this.props.close}><i className="iconfont icon-back"></i></div>
             <div className="column-title active link">网事杂谈</div>
-            <div className="collect"></div>
-            <div className="operate"></div>
+            <div className="collect"><i className="iconfont icon-favorite"></i></div>
+            <div className="operate">
+              <i className="iconfont icon-category"></i>
+            </div>
           </div>
         </header>
         {
           Utils.ctrlLoad({loadY:this.state.loadY})
         }
         <div className="header-bottom">
-          <div className="sub-column link">置顶3</div>
+          <div className="sub-column link">置顶</div>
           <div className="sub-column link">热门</div>
           <div className="sub-column link">精华</div>
           <div className="sub-column link">子版面</div>
