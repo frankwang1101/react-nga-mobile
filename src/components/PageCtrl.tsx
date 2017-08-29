@@ -7,7 +7,8 @@ interface State {
   canScroll: boolean,
   process: number,
   opacity?: number|string,
-  activeKey:string
+  activeKey:string,
+  reback:boolean
 }
 
 export default class PageCtrl extends React.Component<any, State> {
@@ -23,7 +24,8 @@ export default class PageCtrl extends React.Component<any, State> {
       styleArr: {},
       canScroll: true,
       process: 0,
-      activeKey:this.props.activeKey
+      activeKey:this.props.activeKey,
+      reback:false
     };
     [
       'onTouchStart',
@@ -44,6 +46,13 @@ export default class PageCtrl extends React.Component<any, State> {
 
   }
   componentWillReceiveProps(nextProps: any) {
+    if(this.state.reback){
+      this.setState({
+        ...this.state,
+        reback:false
+      });
+      return false;
+    }
     if (nextProps.activeKey != this.props.activeKey) {
       const arr = this.state.keyArr.slice();
       if (this.state.keyArr.length > 2) {
@@ -69,7 +78,6 @@ export default class PageCtrl extends React.Component<any, State> {
     }
   }
   onTouchStart(ev: any) {
-    console.log('page touch')
     /**如果是在左右边缘(15%)则进行判定进入页面切换模式 */
     if (this.state.keyArr.length < 2 || this.state.activeKey === 'main') {
       return;
@@ -83,7 +91,6 @@ export default class PageCtrl extends React.Component<any, State> {
     }
   }
   onTouchMove(ev: any) {
-    console.log('page move')
     if (this.canMove) {
       //需要在第一次move的时候判断是x轴移动还是y轴移动
       let nx = ev.touches[0].clientX,
@@ -104,12 +111,10 @@ export default class PageCtrl extends React.Component<any, State> {
         this.pageMoving = true;
       }
       const percent = dx * 100 / this.rect.width;
-      console.log(dx)
       requestAnimationFrame(() => {
         let map = this.state.styleArr;
         map[this.state.keyArr[this.state.keyArr.length - 1] as string] = { transform: `translateX(${(this.state.process + percent) as number}%)` };
         map[this.state.keyArr[this.state.keyArr.length - 2] as string] = { opacity: 0.7 - (0.7 * Math.abs(this.state.process + percent)) / 100 };
-        console.log(map)
         this.setState({
           ...this.state,
           process: this.state.process + percent,
@@ -121,7 +126,6 @@ export default class PageCtrl extends React.Component<any, State> {
     this.firstMove = false;
   }
   onTouchEnd(ev: any) {
-    console.log('page end')
     if (this.canMove) {
       this.canMove = false;
       this.firstMove = false;
@@ -135,17 +139,21 @@ export default class PageCtrl extends React.Component<any, State> {
       diffO = 0.7 * diffP / 100;
     const run = () => {
       requestAnimationFrame(() => {
-        console.log('enter..')
         if (100 - Math.abs(this.state.process) <= diffP) {
           //如果判断当前页面的位置已经接近看不见了，消除当前页面
-          const nowKey = this.state.keyArr.slice(0, this.state.keyArr.length - 1);
+          let nowKey = this.state.keyArr.slice();
+          const preKey = nowKey.pop();
           this.setState({
             ...this.state,
             process: 0,
             keyArr: nowKey,
             canScroll: true,
             styleArr:{},
-            activeKey:nowKey[nowKey.length-1]
+            activeKey:nowKey[nowKey.length-1],
+            reback:true
+          },() => {
+            this.props.history.go(-1);
+            
           })
         } else {
           let map = this.state.styleArr;
@@ -167,6 +175,7 @@ export default class PageCtrl extends React.Component<any, State> {
     return (
       <div className={`combine ${this.state.canScroll ? '' : 'scroll-forbid'}`} onClick={() => {console.log('page click')}} onTouchStart={this.onTouchStart} onTouchMove={this.onTouchMove} onTouchEnd={this.onTouchEnd}>
         {
+          
           this.state.keyArr.map((key: string, idx: number) => {
             return <div className={`level level-${idx}`} style={this.state.activeKey === key ? this.state.styleArr[key] : {}}>
               {this.state.activeKey === key ? '' : <div className="page-mask" style={this.state.activeKey !== key ? this.state.styleArr[key] : {}}></div>}

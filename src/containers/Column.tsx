@@ -14,7 +14,8 @@ const mapStateToProps = (storeState: storeState) => {
 
 const mapDispatchToProps = (dispatch: Dispatch<actions.ForumAction>) => {
   return {
-    loadPost:(info:column_info) => (dispatch(actions.loadPost(info)))
+    loadPost:(info:column_info) => (dispatch(actions.loadPost(info))),
+    clearPost:() => dispatch(actions.clearPost())
   }
 }
 

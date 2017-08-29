@@ -1,4 +1,5 @@
 import * as React from 'react'
+import {Link} from 'react-router-dom'
 import { TabData, ColumnIcon, Column } from '../types/common'
 import { easeInOout } from '../utils/Tween'
 import * as Utils from '../utils/Utils'
@@ -207,8 +208,10 @@ export default class TabCarousel extends React.Component<Props, State>{
           let subArr = sub.icons.map(function (icon: ColumnIcon, idx) {
             return (
               <div className="column-item" key={icon.id}>
+                <Link to={`/column/${icon.id}`}>
                 <img src={icon.picUrl} alt={icon.name} />
                 <span>{icon.name}</span>
+                </Link>
               </div>
             )
           })

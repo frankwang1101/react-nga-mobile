@@ -15,4 +15,4 @@ const mapDispatch2Props = (dispatch:any) => {
   };
 }
 
-export default connect(mapState2Props)(PostPage);
+export default connect(mapState2Props,mapDispatch2Props)(PostPage);

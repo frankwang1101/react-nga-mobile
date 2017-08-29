@@ -1,6 +1,6 @@
 import { ForumAction } from '../actions/index'
 import { User, Page, TabData } from '../types/common'
-import { SHOW_USERINFO, GET_COLUMN_POST, GET_POST_DETAIL } from '../constants/index'
+import { SHOW_USERINFO, GET_COLUMN_POST, GET_POST_DETAIL,CLEAR_COLUMN_POST } from '../constants/index'
 
 export interface storeState {
   userInfo: User,
@@ -26,6 +26,12 @@ export function columnReduce(state: storeState, action: ForumAction) {
       return {
         ...state,
         post: action.data
+      }
+    }
+    case CLEAR_COLUMN_POST: {
+      return {
+        ...state,
+        posts:[]
       }
     }
     default:

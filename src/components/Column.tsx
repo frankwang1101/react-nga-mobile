@@ -13,7 +13,8 @@ interface Props {
   [property: string]: any,
   posts: Array<any>,
   loadPost: any,
-  close?:any
+  close?:any,
+  clearPost:any
 }
 interface State {
   isFetch: boolean,
@@ -50,7 +51,10 @@ export default class Column extends React.Component<Props, State>{
     ].forEach(m => { this[m] = this[m].bind(this) });
   }
   componentWillMount() {
-
+    if(this.props.posts && this.props.posts.length){
+      console.log('need clear')
+      this.props.clearPost();//清除reducer中残留的上一次数据
+    }
   }
   componentDidMount() {
     document.addEventListener('touchend', this.onTouchEnd);
@@ -62,9 +66,6 @@ export default class Column extends React.Component<Props, State>{
     console.log(nextProps)
   }
   onTouchStart(ev: any) {
-    // this.elePos.x = ev.touches[0].clientX;
-    // this.elePos.px = ev.touches[0].clientX;
-    console.log('column touch')
     let rect = document.documentElement.getBoundingClientRect();
     this.scrollTop = rect.top;
     if (!this.loadProcess && rect.top === 0) {
@@ -74,14 +75,16 @@ export default class Column extends React.Component<Props, State>{
       this.start = true;
       this.loadProcess = true;
     }
-    if(ev.touches[0].clientX < rect.width * 0.9 || ev.touches[0].clientX > rect.width * 0.1){
+    if(ev.touches[0].clientX > rect.width * 0.9 || ev.touches[0].clientX < rect.width * 0.1){
       this.start = false;
       this.loadProcess = false;
       return;
     }
   }
+  componentWillUnmount() {
+    this.props.clearPost();
+  }
   onTouchMove(ev: any) {
-    console.log('column move')
     let cy = ev.touches[0].clientY;
     let dy = cy - this.elePos.py;
     this.elePos.y = cy;
@@ -109,7 +112,6 @@ export default class Column extends React.Component<Props, State>{
     
   }
   onTouchEnd(ev: any) {
-    console.log('column end')
     document.body.style.overflow = 'auto';
     if(this.loadProcess){
       if(this.elePos.y - this.elePos.py > 80){
