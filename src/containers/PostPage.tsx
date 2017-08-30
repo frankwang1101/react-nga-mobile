@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux'
 import PostPage from '../components/PostPage'
-import {getPostDetail} from '../actions/index'
+import {getPostDetail, clearPostDetail} from '../actions/index'
 
 const mapState2Props = (state:any) => {
   return {
@@ -11,7 +11,8 @@ const mapState2Props = (state:any) => {
 
 const mapDispatch2Props = (dispatch:any) => {
   return {
-    getPost:(id:string) => (dispatch(getPostDetail(id)))
+    getPost:(id:string, isHost:boolean) => (dispatch(getPostDetail(id))),
+    clearDetail:() => dispatch(clearPostDetail())
   };
 }
 

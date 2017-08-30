@@ -4,13 +4,13 @@ import { post, comment } from '../types/common'
 export interface PostProps {
   post: post | comment,
   current?: string,
-  host:boolean,
-  floor?:number,
+  host: boolean,
+  floor?: string,
   [method: string]: any
 }
 
 class Post extends React.Component<PostProps, any> {
-  constructor(args:any){
+  constructor(args: any) {
     super(args);
   }
   render() {
@@ -21,7 +21,7 @@ class Post extends React.Component<PostProps, any> {
           <div className="post-info-right">
             <div className="post-info-row">
               <div className="username">admin</div>
-              <div className="usertype">{this.props.host?'楼主':this.props.floor}</div>
+              <div className="usertype">{this.props.host ? '楼主' : this.props.floor}</div>
             </div>
             <div className="post-info-row">
               级别:无 威望:1
@@ -41,6 +41,11 @@ class Post extends React.Component<PostProps, any> {
           <div className="up"><span className="num">0</span>赞</div>
           <div className="down"><span className="num">0</span>踩</div>
           <div className="time">2分钟前</div>
+        </div>
+        <div className="post-operate">
+          <div className="post-operate-wrap">
+
+          </div>
         </div>
       </div>
     );

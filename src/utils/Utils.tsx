@@ -1,5 +1,6 @@
 import * as React from 'react'
-import {column_info,post} from '../types/common'
+import { column_info, post } from '../types/common'
+import {Link} from 'react-router-dom'
 
 export function loading(cb: Promise<any>) {
   let load = document.createElement('div');
@@ -54,27 +55,27 @@ export function ctrlLoad(props: FuncSVGProps) {
   )
 }
 
-function parseTime(time:any){
+function parseTime(time: any) {
   let str = '';
   const nowDate = new Date();
-  if(typeof time === 'string'){
+  if (typeof time === 'string') {
     time = new Date(time);
   }
-  var add0 = function(num:number){
-    return num > 9 ? num : ('0'+num);
+  var add0 = function (num: number) {
+    return num > 9 ? num : ('0' + num);
   }
-  if(nowDate.getTime() - time.getTime() < 60000 ){
-    str = ~~((nowDate.getTime() - time.getTime())/1000) + '秒前'
-  }else if(nowDate.getTime() - time.getTime() < 360000 ){
-    str = ~~((nowDate.getTime() - time.getTime())/60000) + '分钟前'
-  }else if(nowDate.getTime() - time.getTime() < 720000 ){
+  if (nowDate.getTime() - time.getTime() < 60000) {
+    str = ~~((nowDate.getTime() - time.getTime()) / 1000) + '秒前'
+  } else if (nowDate.getTime() - time.getTime() < 360000) {
+    str = ~~((nowDate.getTime() - time.getTime()) / 60000) + '分钟前'
+  } else if (nowDate.getTime() - time.getTime() < 720000) {
     str = '1小时前';
-  }else if(nowDate.getTime() - time.getTime() < 172800000 ){
+  } else if (nowDate.getTime() - time.getTime() < 172800000) {
     str = '1天前'
-  }else if(nowDate.getTime() - time.getTime() < 259200000 ){
+  } else if (nowDate.getTime() - time.getTime() < 259200000) {
     str = '2天前'
-  }else{
-    str = add0(time.getMonth())+'-'+add0(time.getDate())+' '+add0(time.getHours())+':'+add0(time.getMinutes)
+  } else {
+    str = add0(time.getMonth()) + '-' + add0(time.getDate()) + ' ' + add0(time.getHours()) + ':' + add0(time.getMinutes)
   }
   return str;
 }
@@ -82,14 +83,23 @@ function parseTime(time:any){
 export function renderPost(posts: Array<post>) {
   return posts.map(v => (
     <li className="post-item" key={v.id}>
-      <div className="post-title">{v.title}</div>
-      <div className="post-info">
-        <span className="post-author">{v.createUserName}</span>
-        <span className="post-stat">
-          <span className="post-time">{parseTime(v.createTime)}</span>
-          <span className="post-reply">{v.replyCount}</span>
-        </span>
-      </div>
+      <Link to={`/post/${v.id}`}>
+        <div className="post-title">{v.title}</div>
+        <div className="post-info">
+          <span className="post-author">{v.createUserName}</span>
+          <span className="post-stat">
+            <span className="post-time">{parseTime(v.createTime)}</span>
+            <span className="post-reply">{v.replyCount}</span>
+          </span>
+        </div>
+      </Link>
     </li>
   ))
+}
+
+export function renderSearch(search:string){
+  if(search.indexOf('?') === 0){
+    search = search.substr(1);
+  }
+  return search.split('&').reduce((a,p) => {let arr = p.split('=');a[arr[0]] = arr[1];return a;},{} as any)
 }

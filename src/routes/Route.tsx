@@ -5,6 +5,7 @@ import Column from '../containers/Column'
 import Page from '../components/Page';
 import PageCtrl from '../components/PageCtrl'
 import PostPage from '../containers/PostPage'
+import { renderSearch } from '../utils/Utils'
 
 const pages:Array<string> = ['column','post'];
 
@@ -17,7 +18,7 @@ export default function () {
           if (~pages.indexOf(match.params.type)) {
             activeKey = match.params.type
           }
-          return (<PageCtrl match={match} {...rest} activeKey={activeKey}>
+          return (<PageCtrl match={match} {...rest} {...renderSearch(rest.location.search)} activeKey={activeKey}>
             <Main data-path="main"></Main>
             <Column data-path="column"></Column>
             <PostPage data-path="post"></PostPage>

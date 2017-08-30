@@ -1,5 +1,5 @@
 import {Promise} from 'es6-promise'
-import {SHOW_USERINFO_TYPE, GET_COLUMN_POST,GET_POST_DETAIL,CLEAR_COLUMN_POST} from '../constants/index'
+import {SHOW_USERINFO_TYPE, GET_COLUMN_POST,GET_POST_DETAIL,CLEAR_COLUMN_POST,CLEAR_POST_DETAIL} from '../constants/index'
 import {column_info,post} from '../types/common'
 
 export interface USERACTION{
@@ -20,6 +20,14 @@ export function clearPost(){
   return (dispatch:any) => {
     dispatch({
       type:CLEAR_COLUMN_POST
+    })
+  }
+}
+
+export function clearPostDetail(){
+  return (dispatch:any) => {
+    dispatch({
+      type:CLEAR_POST_DETAIL
     })
   }
 }
