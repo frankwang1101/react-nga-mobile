@@ -57,7 +57,6 @@ class PostPage extends React.Component<PostPageProps, any> {
       this.props.clearDetail();
     }
     if (this.state.loaded !== true) {
-      console.log('loading')
       loading(this.props.getPost(this.props.match.params.id,this.props.host === '1')).then((r: any) => {
         this.setState({
           ...this.state,

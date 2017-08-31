@@ -14,7 +14,6 @@
         "es5-promise"
     ],
     "files": [
-        "node_modules/typescript/lib/lib.es6.d.ts",
-        "app.ts"
+        "node_modules/typescript/lib/lib.es6.d.ts"
     ]
 }

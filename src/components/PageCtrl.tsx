@@ -115,8 +115,8 @@ export default class PageCtrl extends React.Component<any, State> {
       const percent = dx * 100 / this.rect.width;
       requestAnimationFrame(() => {
         let map = this.state.styleArr;
-        map[this.state.keyArr[this.state.keyArr.length - 1] as string] = { transform: `translateX(${(this.state.process + percent) as number}%)` };
-        map[this.state.keyArr[this.state.keyArr.length - 2] as string] = { opacity: 0.7 - (0.7 * Math.abs(this.state.process + percent)) / 100 };
+        map[this.state.keyArr[this.state.keyArr.length - 1] + (this.state.keyArr.length - 1) as string] = { transform: `translateX(${(this.state.process + percent) as number}%)` };
+        map[this.state.keyArr[this.state.keyArr.length - 2] + (this.state.keyArr.length - 2) as string] = { opacity: 0.7 - (0.7 * Math.abs(this.state.process + percent)) / 100 };
         this.setState({
           ...this.state,
           process: this.state.process + percent,
@@ -175,8 +175,8 @@ export default class PageCtrl extends React.Component<any, State> {
           }
         } else {
           let map = this.state.styleArr;
-          map[this.state.keyArr[this.state.keyArr.length - 1] as string] = { transform: `translateX(${this.state.process + (left ? diffP : (-diffP)) as number}%)` };
-          map[this.state.keyArr[this.state.keyArr.length - 2] as string] = { opacity: this.state.opacity as number - diffO };
+          map[(this.state.keyArr[this.state.keyArr.length - 1] + (this.state.keyArr.length - 1)) as string] = { transform: `translateX(${this.state.process + (left ? diffP : (-diffP)) as number}%)` };
+          map[this.state.keyArr[this.state.keyArr.length - 2] + (this.state.keyArr.length - 2) as string] = { opacity: this.state.opacity as number - diffO };
           //否则继续动画
           this.setState({
             ...this.state,
@@ -189,13 +189,14 @@ export default class PageCtrl extends React.Component<any, State> {
     run();
   }
   render() {
+ 
     return (
       <div className={`combine ${this.state.canScroll ? '' : 'scroll-forbid'}`} onClick={() => { console.log('page click') }} onTouchStart={this.onTouchStart} onTouchMove={this.onTouchMove} onTouchEnd={this.onTouchEnd}>
         {
 
           this.state.keyArr.map((key: string, idx: number) => {
-            return <div className={`level level-${idx}`} style={this.state.activeKey === key ? this.state.styleArr[key] : {}}>
-              {this.state.activeKey === key ? '' : <div className="page-mask" style={this.state.activeKey !== key ? this.state.styleArr[key] : {}}></div>}
+            return <div className={`level level-${idx}`} style={(idx === this.state.keyArr.length - 1) ? this.state.styleArr[key+idx] : {}}>
+              {(idx === this.state.keyArr.length - 1) ? '' : <div className="page-mask" style={(idx !== this.state.keyArr.length - 1) ? this.state.styleArr[key+idx] : {}}></div>}
               {React.cloneElement(this.state.maps[key], { ...this.props, close: this.close })}
             </div>
           })}
