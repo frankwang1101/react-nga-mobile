@@ -96,7 +96,7 @@ export default class Column extends React.Component<Props, State>{
         this.loadProcess = false;
         return;
       }else{
-        document.body.style.overflow = 'hidden'
+        document.body.classList.add('forbid-scroll')
         this.start = false
       }
       if(dy > 80) dy = 80;
@@ -112,7 +112,7 @@ export default class Column extends React.Component<Props, State>{
     
   }
   onTouchEnd(ev: any) {
-    document.body.style.overflow = 'auto';
+    document.body.classList.remove('forbid-scroll')
     if(this.loadProcess){
       if(this.elePos.y - this.elePos.py > 80){
         this.load();

@@ -70,7 +70,7 @@ class PostPage extends React.Component<PostPageProps, any> {
 
   }
   componentWillUnmount() {
-    this.props.clearDetail();
+    // this.props.clearDetail();
   }
   render() {
     return (

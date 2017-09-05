@@ -189,7 +189,6 @@ export default class PageCtrl extends React.Component<any, State> {
     run();
   }
   render() {
- 
     return (
       <div className={`combine ${this.state.canScroll ? '' : 'scroll-forbid'}`} onClick={() => { console.log('page click') }} onTouchStart={this.onTouchStart} onTouchMove={this.onTouchMove} onTouchEnd={this.onTouchEnd}>
         {

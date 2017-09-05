@@ -33,15 +33,23 @@ html,body{
   }
   .looper(@i - 1);
 }
+.forbid-scroll{
+  .level{
+    overflow: hidden!important;
+  }
+}
 .combine{
   position: relative;
   height: 100vh;
-  &.scroll-forbid{
-    overflow: hidden;
-  }
+  overflow: hidden;
   .level{
     position: absolute;
     width: 100%;
+    height: 100vh;
+    overflow: auto;
+    &.scroll-forbid{
+      overflow: hidden;
+    }
   }
   .page-mask{
     display: block;
