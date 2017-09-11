@@ -6,7 +6,8 @@ export interface storeState {
   userInfo: User,
   tabDatas?: Array<TabData>,
   posts?: Array<any>,
-  page?: number
+  page?: number,
+  collect?:Array<any>
 }
 
 
@@ -31,14 +32,19 @@ export function columnReduce(state: storeState, action: ForumAction) {
     case Action.CLEAR_COLUMN_POST: {
       return {
         ...state,
-        posts:[]
+        posts: []
       }
     }
     case Action.CLEAR_POST_DETAIL: {
-      console.log('clear')
       return {
         ...state,
-        post:{}
+        post: {}
+      }
+    }
+    case Action.GET_COLLECT_LIST: {
+      return {
+        ...state,
+        collect:action.data
       }
     }
     default:

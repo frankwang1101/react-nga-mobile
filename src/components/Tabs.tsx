@@ -34,8 +34,12 @@ export default class TabCarousel extends React.Component<Props, State>{
       'syncSetState',
       'left',
       'right',
-      'changePage'
+      'changePage',
+      'collectTouchStart',
+      'collectTouchEnd'
     ].forEach(m => this[m] = this[m].bind(this))
+    this.pressDuring = 0;
+    this.pressTimer = null;
     this.start = false;
     this.move = false;
     this.moves = [];
@@ -191,23 +195,37 @@ export default class TabCarousel extends React.Component<Props, State>{
       }
     }
   }
+  collectTouchStart(ev:any){
+    this.compressDuring = Date.now();
+    this.pressTimer = setTimeout(() => {
+      this.props.history.push('/post/asdfdsf6301');
+    },2000)
+  }
+  collectTouchEnd(ev:any){
+    console.log('sss')
+    if(this.pressTimer){
+      clearTimeout(this.pressTimer);
+      this.pressTimer = null;
+    }
+  }
   render() {
     const { data } = this.props;
     data.sort((a: TabData, b: TabData) => {
       return a.seq - b.seq;
     });
     let tabArr: any = [], pageArr: any = [], columnArr: any = [];
-    data.forEach(function (v: TabData, i: number) {
+    data.forEach((v: TabData, i: number) => {
       tabArr.push({title:v.title});
+      let isCollect = v.type === 0;
       if (v.list && v.list.length) {
         v.list.sort((a: Column, b: Column) => {
           return a.seq - b.seq;
         });
         columnArr = v.list.map((sub: Column) => {
-          sub.icons.sort(function (v1: ColumnIcon, v2: ColumnIcon) { return v1.seq - v2.seq });
-          let subArr = sub.icons.map(function (icon: ColumnIcon, idx) {
+          sub.icons.sort( (v1: ColumnIcon, v2: ColumnIcon) => { return v1.seq - v2.seq });
+          let subArr = sub.icons.map( (icon: ColumnIcon, idx) => {
             return (
-              <div className="column-item" key={icon.id}>
+              <div className="column-item" key={icon.id} onTouchStart={isCollect?this.collectTouchStart:null} onTouchEnd={isCollect?this.collectTouchEnd:null}>
                 <Link to={`/column/${icon.id}`}>
                 <img src={icon.picUrl} alt={icon.name} />
                 <span>{icon.name}</span>

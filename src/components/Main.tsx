@@ -9,7 +9,8 @@ import '../style/index.less'
 
 export interface Props { 
   name?: string, 
-  tabs: Array<TabData>
+  tabs: Array<TabData>,
+  history:any
 }
 
 export default class App extends React.Component<Props, { showAside: boolean }>{
@@ -47,7 +48,7 @@ export default class App extends React.Component<Props, { showAside: boolean }>{
             <div className="search"><i className="iconfont icon-search"></i></div>
           </div>
         </header>
-        <TabCarousel data={this.props.tabs} onClick={this.onTouchStart} isAsideShow={this.state.showAside} />
+        <TabCarousel data={this.props.tabs} onClick={this.onTouchStart} isAsideShow={this.state.showAside} history={this.props.history}/>
       </div>
     )
   }

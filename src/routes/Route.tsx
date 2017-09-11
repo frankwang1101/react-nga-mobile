@@ -5,9 +5,10 @@ import Column from '../containers/Column'
 import Page from '../components/Page';
 import PageCtrl from '../components/PageCtrl'
 import PostPage from '../containers/PostPage'
+import CollectSort from '../containers/CollectSort'
 import { renderSearch } from '../utils/Utils'
 
-const pages:Array<string> = ['column','post'];
+const pages:Array<string> = ['column','post','collectSort'];
 
 export default function () {
   return (
@@ -22,6 +23,7 @@ export default function () {
             <Main data-path="main"></Main>
             <Column data-path="column"></Column>
             <PostPage data-path="post"></PostPage>
+            <CollectSort data-path="collectSort"></CollectSort>
           </PageCtrl>)
         }} />
 

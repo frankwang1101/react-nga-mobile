@@ -18,33 +18,33 @@ let tabDatas:Array<TabData> = [{
     icons:[{
       name:'DNF',
       seq:1,
-      picUrl:'',
+      picUrl:'./src/style/img/dnf.jpg',
       id:'dnf',
     },{
       id:'diablo',
       name:'暗黑3',
       seq:2,
-      picUrl:''
+       picUrl:'./src/style/img/diablo.jpg',
     },{
       id:'games',
       name:'游戏综合',
       seq:3,
-      picUrl:''
+       picUrl:'./src/style/img/rocket.jpg',
     },{
       id:'acg',
       name:'二次元',
       seq:4,
-      picUrl:''
+       picUrl:'./src/style/img/doraam.jpg',
     },{
       id:'hardware',
       name:'硬件配置',
       seq:5,
-      picUrl:''
+       picUrl:'./src/style/img/shoub.jpg',
     },{
       id:'composite',
       name:'网事杂谈',
       seq:6,
-      picUrl:''
+       picUrl:'./src/style/img/drink.jpg',
     }]
   }]
 },{
