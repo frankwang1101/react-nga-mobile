@@ -5,7 +5,7 @@ import { storeState } from '../reducers/reducer'
 import TabCarousel from '../components/Tabs'
 import Aside from '../components/Aside'
 import { TabData } from '../types/common'
-import '../style/index.less'
+import '../style/index.scss'
 
 export interface Props { 
   name?: string, 

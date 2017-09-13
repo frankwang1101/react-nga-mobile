@@ -26,13 +26,12 @@ html,body{
     transform: translateX(0%)
   }
 }
-@i:10;
-.looper(@i) when (@i>-1) {
-  .level-@{i}{
-    z-index: ~'11@{i}1';
+@for $i from 1 through 10{
+  .level-#{$i}{
+    z-index: '11#{$i}1';
   }
-  .looper(@i - 1);
 }
+
 .forbid-scroll{
   .level{
     overflow: hidden!important;
@@ -61,7 +60,6 @@ html,body{
     bottom: 0;
     z-index: 111;
   }
-  .looper(@i);
 }
 .body-wrap{
   .link{
@@ -169,7 +167,7 @@ html,body{
     width: 100%;
     box-sizing: border-box;
     background: rgb(255,249,227);
-    min-height: calc(~"100vh - 6.2rem");
+    min-height: calc(100vh - 6.2rem);
     display: flex;
     flex-direction: row;
     overflow: hidden;
@@ -378,7 +376,7 @@ html,body{
       }
     }
     .column-content{
-      min-height: calc(~"100vh - 6.2rem");
+      min-height: calc(100vh - 6.2rem);
       background: rgb(255,249,227);
       .post-list{
         .post-item{
@@ -433,7 +431,7 @@ html,body{
     min-height: 100vh;
     .post-page{
       background: #fff9e3;
-      min-height:calc(~"100vh - 3.7rem");
+      min-height:calc(100vh - 3.7rem);
       .post-title{
         display: block;
         min-height: 2rem;
@@ -521,7 +519,7 @@ html,body{
     background: #fff9e3;
     min-height: 100vh;
     .sort-list{
-      min-height: calc(~"100vh - 3rem");
+      min-height: calc(100vh - 3rem);
       &:after{
         content:'';
         visibility: hidden;

@@ -25,9 +25,9 @@ module.exports = {
     rules: [
       { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
       {
-        test: /\.less$/,
+        test: /\.scss$/,
         loader: [
-          'style-loader', 'css-loader', 'less-loader'
+          'style-loader', 'css-loader', 'sass-loader'
         ]
       }, {
         test: /\.tsx?$/,
